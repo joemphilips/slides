@@ -22,12 +22,17 @@ _EOT_
 
 REVISION=$(git rev-parse --short HEAD) || REVISION="first"
 
+if [ -n "$(git status --porcelain)" ]; then
+    usage "working directory should be clean before pushing !!";
+fi
+
+
 rm -rf gh-pages 2> /dev/null
 git worktree prune
 git branch -D gh-pages
 
-git checkout --orphan gh-pages
-git checkout gh-pages && git reset --hard && git checkout master
+git checkout -b gh-pages origin/gh-pages
+git reset --hard && git checkout master
 git worktree add gh-pages
 cp -r $1 gh-pages || usage
 cd gh-pages
