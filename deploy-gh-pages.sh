@@ -32,7 +32,7 @@ git worktree prune
 git branch -D gh-pages
 
 git checkout -b gh-pages origin/gh-pages
-git reset --hard && git checkout master
+# git reset --hard && git checkout master
 git worktree add gh-pages
 cp -r $1 gh-pages || usage
 cd gh-pages
